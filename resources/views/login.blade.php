@@ -62,7 +62,7 @@
           <input class="form-check-input" type="checkbox" name="remember" id="remember">
           <label class="form-check-label" for="remember">Remember me</label>
         </div>
-        <a href="{{ route('password.request') }}" class="text-success small">Forgot password?</a>
+            <a href="#" class="text-success small">Forgot password?</a>
       </div>
 
       <!-- Tombol -->
