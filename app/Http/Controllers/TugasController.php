@@ -17,10 +17,17 @@ class TugasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-        'judul' => 'required|string|max:255',
-        'deskripsi' => 'required|string',
-        'tanggal' => 'required|date',
+        'title' => 'required|string|max:255',
+        'status' => 'required|string',
     ]);
+
+    $task = new Tugas();
+    $task->title = $request->title;
+    $task->status = $request->status;
+    $task->user_id = auth()->id();
+    $task->save();
+
+    return redirect()->route('home')->with('success', 'Task created successfully!');
 
     Tugas::create([
         'judul' => $request->judul,
