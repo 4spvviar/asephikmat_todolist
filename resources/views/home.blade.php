@@ -9,7 +9,7 @@
     <div class="container mt-4">
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
-            <h5 class="fw-bold mb-3" style="color:#626F47;">Tambah Tugas</h5>
+            <h5 class="fw-bold mb-3" style="color:#6f4747;">Tambah Tugas</h5>
             <form action="{{ route('tugas.store') }}" method="POST">
                 @csrf
                 <div class="mb-3">
