@@ -10,7 +10,7 @@ class TugasController extends Controller
 {
      public function index()
     {
-        $data = Tugas::where('user_id',auth()->id())->orderBy('tanggal', 'asc')
+        $data = Tugas::where('user_id',Auth::id())->orderBy('tanggal', 'asc')
             ->get()
             ->groupBy('tanggal');
 
@@ -38,18 +38,18 @@ class TugasController extends Controller
 
     public function tombol($id)
     {
-    $tugas = Tugas::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-    $tugas->status = $tugas->status == '1' ? '0' : '1';
-    $tugas->save();
+        $tugas = Tugas::findOrFail($id);
+        $tugas->status = $tugas->status == '1' ? '0' : '1';
+        $tugas->save();
 
-    return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function hapus($id)
     {
-    $tugas = Tugas::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
-    $tugas->delete();
+        $tugas = Tugas::findOrFail($id);
+        $tugas->delete();
 
-    return redirect()->route('dashboard');
+        return redirect()->route('dashboard');
     }
 }
