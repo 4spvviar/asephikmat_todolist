@@ -10,11 +10,8 @@ class TugasController extends Controller
 {
      public function index()
     {
-        $data = Tugas::where('user_id',auth()->id())->orderBy('tanggal', 'asc')
-            ->get()
-            ->groupBy('tanggal');
-
-        return view('home', ['tugas' => $data]);
+    $tasks = Tugas::where('user_id', Auth::id())->get();
+    return view('home', compact('tasks'));
     }
 
     public function store(Request $request)

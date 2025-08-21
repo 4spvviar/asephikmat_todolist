@@ -1,36 +1,41 @@
 @extends('template')
 
-@section('title', 'Home')
+@section('title', 'Dashboard')
 
 @section('content')
-<div class="row justify-content-center">
-  <div class="col-md-8">
-    <div class="card card-custom p-4">
-      <h3 class="text-success fw-bold mb-3">Welcome, {{ Auth::user()->username ?? 'User' }} 🎉</h3>
-      <p class="text-muted">This is your QuickList dashboard.</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4>Welcome, {{ Auth::user()->username ?? 'User' }} 👋</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Here is your task list:</p>
 
-      <hr>
+                    {{-- Task List --}}
+                    <ul class="list-group">
+                        @foreach($tasks as $task)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ $task->title }}</span>
+                                @if($task->status === 'done')
+                                    <span class="badge bg-success">Done</span>
+                                @elseif($task->status === 'pending')
+                                    <span class="badge bg-warning text-dark">Pending</span>
+                                @else
+                                    <span class="badge bg-danger">Overdue</span>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
 
-      <!-- Example: Task List -->
-      <h5 class="fw-semibold mb-3">Your Tasks</h5>
-      <ul class="list-group mb-4">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Task 1
-          <span class="badge bg-success rounded-pill">Done</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Task 2
-          <span class="badge bg-warning rounded-pill">Pending</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Task 3
-          <span class="badge bg-danger rounded-pill">Overdue</span>
-        </li>
-      </ul>
-
-      <a href="#" class="btn btn-success rounded-pill px-4">+ Add New Task</a>
+                    {{-- Add Task Button --}}
+                    <div class="mt-4 text-end">
+                        <a href="{{ route('tasks.create') }}" class="btn btn-success">+ Add New Task</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @endsection
-
