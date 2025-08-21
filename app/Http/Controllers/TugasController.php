@@ -10,24 +10,20 @@ class TugasController extends Controller
 {
      public function index()
     {
-    $tasks = Tugas::where('user_id', Auth::id())->get();
-    return view('home', compact('tasks'));
+        $data = Tugas::where('user_id',auth()->id())->orderBy('tanggal', 'asc')
+            ->get()
+            ->groupBy('tanggal');
+
+        return view('home', ['tugas' => $data]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-        'title' => 'required|string|max:255',
-        'status' => 'required|string',
+        'judul' => 'required|string|max:255',
+        'deskripsi' => 'required|string',
+        'tanggal' => 'required|date',
     ]);
-
-    $task = new Tugas();
-    $task->title = $request->title;
-    $task->status = $request->status;
-    $task->user_id = Auth::id();
-    $task->save();
-
-    return redirect()->route('home')->with('success', 'Task created successfully!');
 
     Tugas::create([
         'judul' => $request->judul,
@@ -42,23 +38,18 @@ class TugasController extends Controller
 
     public function tombol($id)
     {
-        $tugas = Tugas::findOrFail($id);
-        $tugas->status = $tugas->status == '1' ? '0' : '1';
-        $tugas->save();
+    $tugas = Tugas::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+    $tugas->status = $tugas->status == '1' ? '0' : '1';
+    $tugas->save();
 
-        return redirect()->route('dashboard');
+    return redirect()->route('dashboard');
     }
 
     public function hapus($id)
     {
-        $tugas = Tugas::findOrFail($id);
-        $tugas->delete();
+    $tugas = Tugas::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+    $tugas->delete();
 
-        return redirect()->route('dashboard');
-    }
-
-    public function create()
-    {
-        return view('tasks.create');
+    return redirect()->route('dashboard');
     }
 }
