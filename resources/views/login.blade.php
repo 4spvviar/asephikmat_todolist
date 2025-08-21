@@ -74,7 +74,7 @@
     <!-- Register -->
     <p class="text-center mt-4 mb-0">
       Don’t have an account?
-      <a href="{{ route('register') }}" class="text-success fw-semibold text-decoration-none">Register</a>
+      <a href="{{ route('regist') }}" class="text-success fw-semibold text-decoration-none">Register</a>
     </p>
   </div>
 
