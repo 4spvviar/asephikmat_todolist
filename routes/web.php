@@ -17,4 +17,5 @@ Route::middleware(['aut'])->group(function () {
     Route::patch('/tugas/{id}/toggle', [TugasController::class, 'tombol'])->name('tugas.toggle');
     Route::delete('/tugas/{id}', [TugasController::class, 'hapus'])->name('hapus');
     Route::get('/tasks/create', [TugasController::class, 'create'])->name('tasks.create');
+    Route::post('/tasks/store', [TugasController::class, 'store'])->name('tasks.store');
 });
