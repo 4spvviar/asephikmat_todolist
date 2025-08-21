@@ -49,4 +49,9 @@ class TugasController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    public function create()
+    {
+        return view('tasks.create');
+    }
 }
