@@ -1,58 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Register Member</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="{{ asset('assets/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/bootsrap/css/bootstrap.min.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickList - Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #4ade80, #bbf7d0, #ffffff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .register-card {
+      width: 100%;
+      max-width: 450px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    .register-btn {
+      background-color: #16a34a;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+    .register-btn:hover {
+      background-color: #15803d;
+    }
+  </style>
 </head>
 <body>
-    <div class="d-flex justify-content-center align-items-center min-vh-100">
-        <div class="container shadow p-5 rounded-3" style="width: 650px">
-            <h2 style="color:#626F47;">Register Member</h2>
-            <hr>
-            @if (session('message'))
-            <div class="alert alert-danger">
-                {{ session('message') }}
-            </div>
-            @endif
 
-            <form action="{{ route('regist.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="mt-4">
-                    <label for="name">Full Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter full name" name="name" required>
-                </div>
-                <div class="mt-4">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email" required>
-                </div>
-                <div class="mt-4">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password" required>
-                </div>
-                <div class="mt-4 mb-4">
-                    <label for="password_confirmation">Confirm Password</label>
-                    <input type="password" class="form-control" id="password_confirmation" placeholder="Confirm Password" name="password_confirmation" required>
-                </div>
+  <div class="card register-card p-4">
+    <h2 class="text-center fw-bold text-success mb-1">QuickList</h2>
+    <p class="text-center text-muted mb-4">Create a new account</p>
 
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn" style="background-color: #626F47; color:white">Register</button>
-                    <a href="/login" class="btn" style="background-color: #7b0f0f; color:white">Cancel</a>
-                </div>
-            </form>
+    @if(session('success'))
+      <div class="alert alert-success text-center">
+        {{ session('success') }}
+      </div>
+    @endif
 
-            <div class="mt-3">
-                <small>Already have an account?
-                    <a href="{{ route('login') }}" style="color: #626F47; text-decoration:none">Login</a>
-                </small>
-            </div>
-        </div>
-    </div>
+    <form action="{{ url('/register') }}" method="POST">
+      @csrf
+
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">Username</label>
+        <input type="text" class="form-control rounded-pill px-3 py-2" id="username" name="username" placeholder="Enter your username" required>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control rounded-pill px-3 py-2" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label fw-semibold">Password</label>
+        <input type="password" class="form-control rounded-pill px-3 py-2" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="mb-3">
+        <label for="password_confirmation" class="form-label fw-semibold">Confirm Password</label>
+        <input type="password" class="form-control rounded-pill px-3 py-2" id="password_confirmation" name="password_confirmation" placeholder="Re-enter your password" required>
+      </div>
+
+      <!-- Tombol -->
+      <button type="submit" class="btn register-btn w-100 text-white rounded-pill py-2 fw-semibold">
+        Register
+      </button>
+    </form>
+
+    <!-- Link ke login -->
+    <p class="text-center mt-4 mb-0">
+      Already have an account?
+      <a href="{{ route('login') }}" class="text-success fw-semibold text-decoration-none">Login</a>
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
