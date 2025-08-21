@@ -24,7 +24,7 @@ class TugasController extends Controller
     $task = new Tugas();
     $task->title = $request->title;
     $task->status = $request->status;
-    $task->user_id = auth()->id();
+    $task->user_id = Auth::id();
     $task->save();
 
     return redirect()->route('home')->with('success', 'Task created successfully!');
